@@ -35,14 +35,15 @@
             this.búsquedaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.informaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.idiomaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.españolToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.inglésToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.salirToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip2.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip2
             // 
+            this.menuStrip2.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip2.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.mapaToolStripMenuItem,
             this.búsquedaToolStripMenuItem,
@@ -51,7 +52,7 @@
             this.salirToolStripMenuItem});
             this.menuStrip2.Location = new System.Drawing.Point(0, 0);
             this.menuStrip2.Name = "menuStrip2";
-            this.menuStrip2.Size = new System.Drawing.Size(936, 24);
+            this.menuStrip2.Size = new System.Drawing.Size(1248, 28);
             this.menuStrip2.TabIndex = 1;
             this.menuStrip2.Text = "menuStrip2";
             // 
@@ -61,34 +62,35 @@
             this.ciudadToolStripMenuItem,
             this.rutasToolStripMenuItem});
             this.mapaToolStripMenuItem.Name = "mapaToolStripMenuItem";
-            this.mapaToolStripMenuItem.Size = new System.Drawing.Size(49, 20);
+            this.mapaToolStripMenuItem.Size = new System.Drawing.Size(61, 26);
             this.mapaToolStripMenuItem.Text = "Mapa";
+            this.mapaToolStripMenuItem.Click += new System.EventHandler(this.mapaToolStripMenuItem_Click);
             // 
             // ciudadToolStripMenuItem
             // 
             this.ciudadToolStripMenuItem.Name = "ciudadToolStripMenuItem";
-            this.ciudadToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.ciudadToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.ciudadToolStripMenuItem.Text = "Ciudad";
             this.ciudadToolStripMenuItem.Click += new System.EventHandler(this.ciudadToolStripMenuItem_Click);
             // 
             // rutasToolStripMenuItem
             // 
             this.rutasToolStripMenuItem.Name = "rutasToolStripMenuItem";
-            this.rutasToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.rutasToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.rutasToolStripMenuItem.Text = "Ruta";
             this.rutasToolStripMenuItem.Click += new System.EventHandler(this.rutasToolStripMenuItem_Click);
             // 
             // búsquedaToolStripMenuItem
             // 
             this.búsquedaToolStripMenuItem.Name = "búsquedaToolStripMenuItem";
-            this.búsquedaToolStripMenuItem.Size = new System.Drawing.Size(71, 20);
+            this.búsquedaToolStripMenuItem.Size = new System.Drawing.Size(88, 26);
             this.búsquedaToolStripMenuItem.Text = "Búsqueda";
             this.búsquedaToolStripMenuItem.Click += new System.EventHandler(this.búsquedaToolStripMenuItem_Click);
             // 
             // informaciónToolStripMenuItem
             // 
             this.informaciónToolStripMenuItem.Name = "informaciónToolStripMenuItem";
-            this.informaciónToolStripMenuItem.Size = new System.Drawing.Size(84, 20);
+            this.informaciónToolStripMenuItem.Size = new System.Drawing.Size(103, 26);
             this.informaciónToolStripMenuItem.Text = "Información";
             this.informaciónToolStripMenuItem.Click += new System.EventHandler(this.informaciónToolStripMenuItem_Click);
             // 
@@ -98,33 +100,34 @@
             this.españolToolStripMenuItem,
             this.inglésToolStripMenuItem});
             this.idiomaToolStripMenuItem.Name = "idiomaToolStripMenuItem";
-            this.idiomaToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+            this.idiomaToolStripMenuItem.Size = new System.Drawing.Size(70, 26);
             this.idiomaToolStripMenuItem.Text = "Idioma";
-            // 
-            // salirToolStripMenuItem
-            // 
-            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
-            this.salirToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.salirToolStripMenuItem.Text = "Salir";
             // 
             // españolToolStripMenuItem
             // 
             this.españolToolStripMenuItem.Name = "españolToolStripMenuItem";
-            this.españolToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.españolToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.españolToolStripMenuItem.Text = "Español";
             // 
             // inglésToolStripMenuItem
             // 
             this.inglésToolStripMenuItem.Name = "inglésToolStripMenuItem";
-            this.inglésToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.inglésToolStripMenuItem.Size = new System.Drawing.Size(144, 26);
             this.inglésToolStripMenuItem.Text = "Inglés";
+            // 
+            // salirToolStripMenuItem
+            // 
+            this.salirToolStripMenuItem.Name = "salirToolStripMenuItem";
+            this.salirToolStripMenuItem.Size = new System.Drawing.Size(52, 26);
+            this.salirToolStripMenuItem.Text = "Salir";
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(936, 470);
+            this.ClientSize = new System.Drawing.Size(1248, 578);
             this.Controls.Add(this.menuStrip2);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Form1";
             this.Text = "Planeación de viajes";
             this.Load += new System.EventHandler(this.Form1_Load);
