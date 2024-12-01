@@ -29,8 +29,8 @@ namespace ProyectoFinal
 
         private void Ruta_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true; // Evita que el formulario se cierre.
-            this.Hide();     // Oculta el formulario en lugar de cerrarlo.
+            e.Cancel = true;
+            this.Hide();
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -68,11 +68,11 @@ namespace ProyectoFinal
 
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Button1_Click(object sender, EventArgs e)
         {
             string punto1, punto2;
             int Indicep1, Indicep2;
-            int distancia;
+            double distancia;
             if (comboBox1.Text == "" || comboBox2.Text == "")
             {
                 MessageBox.Show("El punto inicial y final deben definirse");
@@ -109,7 +109,7 @@ namespace ProyectoFinal
                 MessageBox.Show("El costo en transporte público tiene que ser mayor a 0");
                 return;
             }
-            distancia = int.Parse(textBox3.Text);
+            distancia = double.Parse(textBox3.Text);
             punto1 = comboBox1.Text;
             punto2 = comboBox2.Text;
             Indicep1 = ListaPuntos.FindIndex(x => x.nombre == punto1);
@@ -130,10 +130,10 @@ namespace ProyectoFinal
                 PuntoInicio = punto1,
                 PuntoFinal = punto2,
                 Distancia = distancia,
-                TiempoTransPublico = int.Parse(textBox8.Text),
-                CostoTransPublico = decimal.Parse(textBox7.Text),
-                TiempoAutoRentado = int.Parse(textBox5.Text),
-                CostoAutoRentado = decimal.Parse(textBox6.Text),
+                TiempoTransPublico = double.Parse(textBox8.Text),
+                CostoTransPublico = double.Parse(textBox7.Text),
+                TiempoAutoRentado = double.Parse(textBox5.Text),
+                CostoAutoRentado = double.Parse(textBox6.Text),
             };
             ListaLineas.Add(nuevaLinea);
 
@@ -174,7 +174,6 @@ namespace ProyectoFinal
                     if (ListaLineas[i].Nombre == textBox1.Text)
                     {
                         ListaLineas.RemoveAt(i);
-                        length = ListaLineas.Count;
                         return;
                     }
                 }
@@ -183,91 +182,63 @@ namespace ProyectoFinal
 
         private void button2_Click(object sender, EventArgs e)
         {
-            string punto1, punto2;
-            int Indicep1, Indicep2;
-            int distancia;
-            if (comboBox1.Text == "" || comboBox2.Text == "")
+            if (string.IsNullOrEmpty(textBox1.Text))
             {
-                MessageBox.Show("El punto inicial y final deben definirse");
-                return;
-            }
-            if (comboBox1.Text == comboBox2.Text)
-            {
-                MessageBox.Show("El punto inicial y final deben de ser distintos");
-                return;
+                MessageBox.Show("Escribe el nombre de la ruta que quieres modificar");
             }
 
-            if (string.IsNullOrEmpty(textBox3.Text))
+            if (!double.TryParse(textBox3.Text, out double distancia) || distancia <= 0)
             {
                 MessageBox.Show("La distancia tiene que ser mayor a 0");
                 return;
             }
-            if (string.IsNullOrEmpty(textBox5.Text))
+            if (!double.TryParse(textBox5.Text, out double tiempoAutoRentado) || tiempoAutoRentado <= 0)
             {
                 MessageBox.Show("El tiempo en auto rentado tiene que ser mayor a 0");
                 return;
             }
-            if (string.IsNullOrEmpty(textBox6.Text))
+            if (!double.TryParse(textBox6.Text, out double costoAutoRentado) || costoAutoRentado <= 0)
             {
                 MessageBox.Show("El costo en auto rentado tiene que ser mayor a 0");
                 return;
             }
-            if (string.IsNullOrEmpty(textBox8.Text))
+            if (!double.TryParse(textBox8.Text, out double tiempoTransPublico) || tiempoTransPublico <= 0)
             {
                 MessageBox.Show("El tiempo en transporte público tiene que ser mayor a 0");
                 return;
             }
-            if (string.IsNullOrEmpty(textBox7.Text))
+            if (!double.TryParse(textBox7.Text, out double costoTransPublico) || costoTransPublico <= 0)
             {
                 MessageBox.Show("El costo en transporte público tiene que ser mayor a 0");
                 return;
             }
-            distancia = int.Parse(textBox3.Text);
-            punto1 = comboBox1.Text;
-            punto2 = comboBox2.Text;
-            Indicep1 = ListaPuntos.FindIndex(x => x.nombre == punto1);
-            Indicep2 = ListaPuntos.FindIndex(x => x.nombre == punto2);
-            if (ListaLineas.Any(x => (x.PuntoInicio == punto1 && x.PuntoFinal == punto2)) ||
-            ListaLineas.Any(x => (x.PuntoInicio == punto2 && x.PuntoFinal == punto1)))
+
+            string nombreRuta = textBox1.Text;
+            var ruta = ListaLineas.FirstOrDefault(x => x.Nombre == nombreRuta);
+            if (ruta == null)
             {
-                MessageBox.Show("La línea " + textBox1.Text + " ya existe");
-                textBox1.Text = String.Empty;
-                comboBox1.Text = String.Empty;
-                comboBox2.Text = String.Empty;
+                MessageBox.Show($"La ruta con nombre '{nombreRuta}' no existe.");
                 return;
             }
 
-            string nuevo_nombre = textBox1.Text;
-            bool cambio = false;
-            int index = 0;
+            DialogResult confirmacion = MessageBox.Show(
+                $"¿Estás seguro de que deseas modificar los datos de la ruta '{nombreRuta}'?",
+                "Confirmar Modificación",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question
+            );
 
-            Int32 length = ListaLineas.Count;
-            if (length != 0)
+            if (confirmacion == DialogResult.No)
             {
-                for (int i = length - 1; i >= 0; i--)
-                {
-                    if (ListaLineas[i].Nombre == textBox1.Text)
-                    {
-                        index = i;
-                        cambio = true;
-                    }
-                }
+                return;
             }
-            if (cambio)
-            {
-                ListaLineas[index] = new Linea
-                {
-                    Nombre = textBox1.Text,
-                    PuntoInicio = punto1,
-                    PuntoFinal = punto2,
-                    Distancia = distancia,
-                    TiempoTransPublico = int.Parse(textBox8.Text),
-                    CostoTransPublico = decimal.Parse(textBox7.Text),
-                    TiempoAutoRentado = int.Parse(textBox5.Text),
-                    CostoAutoRentado = decimal.Parse(textBox6.Text),
-                };
+            ruta.Distancia = distancia;
+            ruta.TiempoTransPublico = tiempoTransPublico;
+            ruta.CostoTransPublico = costoTransPublico;
+            ruta.TiempoAutoRentado = tiempoAutoRentado;
+            ruta.CostoAutoRentado = costoAutoRentado;
 
-            }
+            MessageBox.Show($"La ruta '{nombreRuta}' se ha modificado correctamente.");
         }
     }
 }

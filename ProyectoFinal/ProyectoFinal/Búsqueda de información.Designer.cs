@@ -89,9 +89,9 @@
             this.groupBox1.Controls.Add(this.radioButton2);
             this.groupBox1.Controls.Add(this.radioButton1);
             this.groupBox1.Location = new System.Drawing.Point(528, 20);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox1.Size = new System.Drawing.Size(224, 111);
             this.groupBox1.TabIndex = 14;
             this.groupBox1.TabStop = false;
@@ -102,7 +102,7 @@
             // 
             this.radioButton2.AutoSize = true;
             this.radioButton2.Location = new System.Drawing.Point(29, 59);
-            this.radioButton2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButton2.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton2.Name = "radioButton2";
             this.radioButton2.Size = new System.Drawing.Size(141, 20);
             this.radioButton2.TabIndex = 1;
@@ -115,7 +115,7 @@
             // 
             this.radioButton1.AutoSize = true;
             this.radioButton1.Location = new System.Drawing.Point(29, 30);
-            this.radioButton1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButton1.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(104, 20);
             this.radioButton1.TabIndex = 0;
@@ -130,9 +130,9 @@
             this.groupBox2.Controls.Add(this.radioButton3);
             this.groupBox2.Controls.Add(this.radioButton4);
             this.groupBox2.Location = new System.Drawing.Point(784, 21);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox2.Size = new System.Drawing.Size(269, 110);
             this.groupBox2.TabIndex = 15;
             this.groupBox2.TabStop = false;
@@ -142,7 +142,7 @@
             // 
             this.radioButton5.AutoSize = true;
             this.radioButton5.Location = new System.Drawing.Point(29, 82);
-            this.radioButton5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButton5.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton5.Name = "radioButton5";
             this.radioButton5.Size = new System.Drawing.Size(63, 20);
             this.radioButton5.TabIndex = 2;
@@ -155,7 +155,7 @@
             // 
             this.radioButton3.AutoSize = true;
             this.radioButton3.Location = new System.Drawing.Point(29, 55);
-            this.radioButton3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButton3.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton3.Name = "radioButton3";
             this.radioButton3.Size = new System.Drawing.Size(84, 20);
             this.radioButton3.TabIndex = 1;
@@ -168,7 +168,7 @@
             // 
             this.radioButton4.AutoSize = true;
             this.radioButton4.Location = new System.Drawing.Point(29, 26);
-            this.radioButton4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.radioButton4.Margin = new System.Windows.Forms.Padding(4);
             this.radioButton4.Name = "radioButton4";
             this.radioButton4.Size = new System.Drawing.Size(75, 20);
             this.radioButton4.TabIndex = 0;
@@ -180,7 +180,7 @@
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(1075, 25);
-            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button1.Margin = new System.Windows.Forms.Padding(4);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(136, 46);
             this.button1.TabIndex = 16;
@@ -191,7 +191,7 @@
             // button2
             // 
             this.button2.Location = new System.Drawing.Point(1075, 79);
-            this.button2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button2.Margin = new System.Windows.Forms.Padding(4);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(136, 46);
             this.button2.TabIndex = 17;
@@ -268,27 +268,29 @@
             this.listBox1.FormattingEnabled = true;
             this.listBox1.ItemHeight = 16;
             this.listBox1.Location = new System.Drawing.Point(536, 167);
-            this.listBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBox1.Margin = new System.Windows.Forms.Padding(4);
             this.listBox1.Name = "listBox1";
             this.listBox1.Size = new System.Drawing.Size(129, 244);
             this.listBox1.TabIndex = 24;
+            this.listBox1.SelectedIndexChanged += new System.EventHandler(this.listBox1_SelectedIndexChanged);
             // 
             // listBox2
             // 
             this.listBox2.FormattingEnabled = true;
             this.listBox2.ItemHeight = 16;
             this.listBox2.Location = new System.Drawing.Point(675, 167);
-            this.listBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBox2.Margin = new System.Windows.Forms.Padding(4);
             this.listBox2.Name = "listBox2";
             this.listBox2.Size = new System.Drawing.Size(129, 244);
             this.listBox2.TabIndex = 25;
+            this.listBox2.SelectedIndexChanged += new System.EventHandler(this.listBox2_SelectedIndexChanged);
             // 
             // listBox3
             // 
             this.listBox3.FormattingEnabled = true;
             this.listBox3.ItemHeight = 16;
             this.listBox3.Location = new System.Drawing.Point(813, 169);
-            this.listBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBox3.Margin = new System.Windows.Forms.Padding(4);
             this.listBox3.Name = "listBox3";
             this.listBox3.Size = new System.Drawing.Size(129, 244);
             this.listBox3.TabIndex = 26;
@@ -298,7 +300,7 @@
             this.listBox4.FormattingEnabled = true;
             this.listBox4.ItemHeight = 16;
             this.listBox4.Location = new System.Drawing.Point(952, 169);
-            this.listBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBox4.Margin = new System.Windows.Forms.Padding(4);
             this.listBox4.Name = "listBox4";
             this.listBox4.Size = new System.Drawing.Size(80, 244);
             this.listBox4.TabIndex = 27;
@@ -308,7 +310,7 @@
             this.listBox5.FormattingEnabled = true;
             this.listBox5.ItemHeight = 16;
             this.listBox5.Location = new System.Drawing.Point(1040, 167);
-            this.listBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBox5.Margin = new System.Windows.Forms.Padding(4);
             this.listBox5.Name = "listBox5";
             this.listBox5.Size = new System.Drawing.Size(76, 244);
             this.listBox5.TabIndex = 28;
@@ -318,7 +320,7 @@
             this.listBox6.FormattingEnabled = true;
             this.listBox6.ItemHeight = 16;
             this.listBox6.Location = new System.Drawing.Point(1125, 167);
-            this.listBox6.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.listBox6.Margin = new System.Windows.Forms.Padding(4);
             this.listBox6.Name = "listBox6";
             this.listBox6.Size = new System.Drawing.Size(76, 244);
             this.listBox6.TabIndex = 29;
@@ -336,7 +338,7 @@
             // textBox2
             // 
             this.textBox2.Location = new System.Drawing.Point(952, 433);
-            this.textBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox2.Margin = new System.Windows.Forms.Padding(4);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(80, 22);
             this.textBox2.TabIndex = 31;
@@ -344,7 +346,7 @@
             // textBox3
             // 
             this.textBox3.Location = new System.Drawing.Point(1041, 433);
-            this.textBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox3.Margin = new System.Windows.Forms.Padding(4);
             this.textBox3.Name = "textBox3";
             this.textBox3.Size = new System.Drawing.Size(75, 22);
             this.textBox3.TabIndex = 32;
@@ -352,7 +354,7 @@
             // textBox5
             // 
             this.textBox5.Location = new System.Drawing.Point(1125, 433);
-            this.textBox5.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox5.Margin = new System.Windows.Forms.Padding(4);
             this.textBox5.Name = "textBox5";
             this.textBox5.Size = new System.Drawing.Size(76, 22);
             this.textBox5.TabIndex = 33;
@@ -360,7 +362,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(39, 103);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(479, 394);
             this.pictureBox1.TabIndex = 34;
@@ -415,7 +417,7 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label2);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "Búsqueda_de_información";
             this.Text = "Búsqueda_de_información";
             this.Load += new System.EventHandler(this.Búsqueda_de_información_Load);

@@ -18,11 +18,11 @@ namespace ProyectoFinal
             public string Nombre { get; set; }
             public string PuntoInicio { get; set; }
             public string PuntoFinal { get; set; }
-            public int Distancia { get; set; } 
-            public int TiempoTransPublico { get; set; } 
-            public decimal CostoTransPublico { get; set; }
-            public int TiempoAutoRentado { get; set; }
-            public decimal CostoAutoRentado { get; set; } 
+            public double Distancia { get; set; } 
+            public double TiempoTransPublico { get; set; } 
+            public double CostoTransPublico { get; set; }
+            public double TiempoAutoRentado { get; set; }
+            public double CostoAutoRentado { get; set; } 
         }
 
         public List<Linea> listaLineas = new List<Linea>();
@@ -35,7 +35,7 @@ namespace ProyectoFinal
             InitializeComponent();
             busquedaForm = new Búsqueda_de_información(listaPuntos, listaLineas);
             rutaForm = new Ruta(listaPuntos, listaLineas);
-            ciudadForm = new Ciudad(listaPuntos, rutaForm, rutaForm, busquedaForm, busquedaForm);
+            ciudadForm = new Ciudad(listaPuntos, listaLineas, rutaForm, rutaForm, busquedaForm, busquedaForm);
         }
 
         private void Form1_Load(object sender, EventArgs e)

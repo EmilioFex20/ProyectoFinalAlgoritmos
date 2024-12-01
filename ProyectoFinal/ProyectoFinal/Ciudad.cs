@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static ProyectoFinal.Form1;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace ProyectoFinal
@@ -19,10 +20,12 @@ namespace ProyectoFinal
         private Búsqueda_de_información combobox3;
         private Búsqueda_de_información combobox4;
         public List<(string nombre, int x, int y)> ListaPuntos { get; private set; }
-        public Ciudad(List<(string nombre, int x, int y)> listaPuntos, Ruta comboBox1, Ruta comboBox2, Búsqueda_de_información comboBox3, Búsqueda_de_información comboBox4)
+        public List<Linea> ListaLineas { get; private set; }
+        public Ciudad(List<(string nombre, int x, int y)> listaPuntos, List<Linea> listaLineas, Ruta comboBox1, Ruta comboBox2, Búsqueda_de_información comboBox3, Búsqueda_de_información comboBox4)
         {
             InitializeComponent();
             ListaPuntos = listaPuntos;
+            ListaLineas = listaLineas;
 
             combobox1 = comboBox1;
             combobox2 = comboBox2;
@@ -33,8 +36,8 @@ namespace ProyectoFinal
 
         private void Ciudad_FormClosing(object sender, FormClosingEventArgs e)
         {
-            e.Cancel = true; // Evita que el formulario se cierre.
-            this.Hide();     // Oculta el formulario en lugar de cerrarlo.
+            e.Cancel = true; 
+            this.Hide();    
         }
 
         private void label3_Click(object sender, EventArgs e)
@@ -85,8 +88,22 @@ namespace ProyectoFinal
 
         private void button3_Click(object sender, EventArgs e)
         {
+            if (ListaPuntos.Count == 0)
+            {
+                MessageBox.Show("No hay ciudades para eliminar.");
+                return;
+            }
             Int32 length = ListaPuntos.Count;
-            if (length != 0)
+            bool ciudadEnUso = ListaLineas.Any(linea =>
+       linea.PuntoInicio == textBox1.Text || linea.PuntoFinal == textBox1.Text);
+
+            if (ciudadEnUso)
+            {
+                MessageBox.Show($"No se puede eliminar la ciudad '{textBox1.Text}' porque está asociada a una o más rutas.");
+                return;
+            }
+
+            else if (length != 0)
             {
                 for (int i = length - 1; i >= 0; i--)
                 {
@@ -98,7 +115,6 @@ namespace ProyectoFinal
                     }
                 }
             }
-            
         }
 
         private void button2_Click(object sender, EventArgs e)
