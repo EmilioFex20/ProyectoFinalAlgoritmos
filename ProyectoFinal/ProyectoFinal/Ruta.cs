@@ -73,6 +73,18 @@ namespace ProyectoFinal
             string punto1, punto2;
             int Indicep1, Indicep2;
             double distancia;
+            Int32 length = ListaLineas.Count;
+            if (length != 0)
+            {
+                for (int i = length - 1; i >= 0; i--)
+                {
+                    if (ListaLineas[i].Nombre == textBox1.Text)
+                    {
+                        MessageBox.Show("Nombre de la ruta ocupado, cambialo");
+                        return;
+                    }
+                }
+            }
             if (comboBox1.Text == "" || comboBox2.Text == "")
             {
                 MessageBox.Show("El punto inicial y final deben definirse");

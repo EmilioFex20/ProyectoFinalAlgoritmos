@@ -133,6 +133,63 @@ namespace ProyectoFinal
             }
         }
 
+        private void pictureBox1_PaintRuta(object sender, PaintEventArgs e, List<string> nombresCamino, List<Linea> rutasCamino)
+        {
+            Graphics grafica = e.Graphics;
+            grafica.Clear(Color.White);
+            SolidBrush Brush = new SolidBrush(Color.Red);
+
+            // Dibujar todos los puntos
+            foreach (var punto in ListaPuntos)
+            {
+                grafica.FillEllipse(Brush, punto.x, punto.y, 10, 10);
+                grafica.DrawString(punto.nombre,
+                    new Font("Arial", 10),
+                    Brushes.Red,
+                    new Point(punto.x + 10, punto.y + 10));
+            }
+
+            // Dibujar todas las líneas
+            foreach (var linea in ListaLineas)
+            {
+                int Indicep1 = ListaPuntos.FindIndex(x => x.nombre == linea.PuntoInicio);
+                int Indicep2 = ListaPuntos.FindIndex(x => x.nombre == linea.PuntoFinal);
+
+                if (Indicep1 != -1 && Indicep2 != -1)
+                {
+                    Point p1 = new Point(ListaPuntos[Indicep1].x + 5, ListaPuntos[Indicep1].y + 5);
+                    Point p2 = new Point(ListaPuntos[Indicep2].x + 5, ListaPuntos[Indicep2].y + 5);
+
+                    Pen pen = new Pen(Color.Black, 2); // Color normal para todas las rutas
+                    grafica.DrawLine(pen, p1, p2);
+
+                    // Dibujar el nombre de la línea
+                    Point midpoint = new Point((p1.X + p2.X) / 2, (p1.Y + p2.Y) / 2);
+                    grafica.DrawString(linea.Nombre, new Font("Arial", 8), Brushes.Blue, midpoint);
+                }
+            }
+
+            // Dibujar el camino calculado con un color distinto
+            if (rutasCamino != null)
+            {
+                Pen caminoPen = new Pen(Color.Green, 3); // Resalta el camino con otro color y mayor grosor
+                foreach (var linea in rutasCamino)
+                {
+                    int Indicep1 = ListaPuntos.FindIndex(x => x.nombre == linea.PuntoInicio);
+                    int Indicep2 = ListaPuntos.FindIndex(x => x.nombre == linea.PuntoFinal);
+
+                    if (Indicep1 != -1 && Indicep2 != -1)
+                    {
+                        Point p1 = new Point(ListaPuntos[Indicep1].x + 5, ListaPuntos[Indicep1].y + 5);
+                        Point p2 = new Point(ListaPuntos[Indicep2].x + 5, ListaPuntos[Indicep2].y + 5);
+
+                        grafica.DrawLine(caminoPen, p1, p2);
+                    }
+                }
+            }
+        }
+
+
         private void Búsqueda_de_información_Shown(object sender, EventArgs e)
         {
             
@@ -195,7 +252,7 @@ namespace ProyectoFinal
         {
             double[] distancias = new double[n];
             bool[] visitado = new bool[n];
-            int[] predecesores = new int[n];
+            int[] padres = new int[n];
             const double INF = double.MaxValue;
 
             // Inicializar distancias y predecesores
@@ -203,7 +260,7 @@ namespace ProyectoFinal
             {
                 distancias[i] = INF;
                 visitado[i] = false;
-                predecesores[i] = -1;
+                padres[i] = -1;
             }
             distancias[inicio] = 0;
 
@@ -221,7 +278,7 @@ namespace ProyectoFinal
                         distancias[u] + matriz[u, v] < distancias[v])
                     {
                         distancias[v] = distancias[u] + matriz[u, v];
-                        predecesores[v] = u;
+                        padres[v] = u;
                     }
                 }
             }
@@ -232,7 +289,7 @@ namespace ProyectoFinal
             while (actual != -1)
             {
                 camino.Insert(0, actual);
-                actual = predecesores[actual];
+                actual = padres[actual];
             }
 
             // Si el destino no es alcanzable
@@ -255,9 +312,10 @@ namespace ProyectoFinal
                 {
                     min = distancias[i];
                     minIndex = i;
+                    Console.WriteLine(minIndex);
                 }
             }
-
+            Console.WriteLine("OTRO");
             return minIndex;
         }
 
@@ -265,7 +323,6 @@ namespace ProyectoFinal
         private void button1_Click(object sender, EventArgs e)
         {
             string puntoInicio, puntoFinal;
-            //matrizSeleccionadaENTERO = null;
             matrizSeleccionadaDECIMAL = null;
             CrearMatrizAdyacencia();
 
@@ -321,6 +378,10 @@ namespace ProyectoFinal
             {
                 listBox1.Items.Add("Transporte Público");
             }
+            if (radioButton3.Checked)
+            {
+                listBox1.Items.Clear();
+            }
 
             puntoInicio = comboBox1.Text;
             puntoFinal = comboBox2.Text;
@@ -344,7 +405,151 @@ namespace ProyectoFinal
                 else
                 {
                     var nombresCamino = camino.Select(idx => ListaPuntos[idx].nombre).ToList();
+                    List<Linea> rutasCamino = new List<Linea>();
+                    for (int i = 0; i < nombresCamino.Count - 1; i++)
+                    {
+                        string puntoInicioActual = nombresCamino[i];
+                        string puntoFinalActual = nombresCamino[i + 1];
+
+                        var linea = ListaLineas.FirstOrDefault(l => l.PuntoInicio == puntoInicioActual && l.PuntoFinal == puntoFinalActual);
+                        if (linea != null)
+                        {
+                            rutasCamino.Add(linea);
+                        }
+                    }
+
+                    pictureBox1.Invalidate(); 
+                    pictureBox1.Paint += (s, args) => pictureBox1_PaintRuta(s, args, nombresCamino, rutasCamino);
+
+                    List<double> Distancias = new List<double>();
+                    List<double> TiemposTransPublico = new List<double>();
+                    List<double> CostosTransPublico = new List<double>();
+                    List<double> TiemposAutoRentado = new List<double>();
+                    List<double> CostosAutoRentado = new List<double>();
+
                     MessageBox.Show($"Distancia mínima: {distancia}\nCamino: {string.Join(" -> ", nombresCamino)}");
+                    listBox2.Items.Clear();
+                    listBox3.Items.Clear();
+                    listBox4.Items.Clear();
+                    listBox5.Items.Clear();
+                    listBox6.Items.Clear();
+                    listBox7.Items.Clear();
+                    listBox8.Items.Clear();
+                    listBox9.Items.Clear();
+                    for (int i = 0; i < camino.Count; i ++)
+                    {
+                        if (i == 0)
+                        {
+                            listBox2.Items.Add(nombresCamino[i]);
+                        }
+                        else
+                        {
+                            listBox2.Items.Add(nombresCamino[i]);
+                            listBox3.Items.Add(nombresCamino[i]);
+                        }
+                        
+                    }
+                    if (radioButton3.Checked)
+                    {
+                        for (int i = 0; i < nombresCamino.Count - 1; i++)
+                        {
+                            string puntoInicioActual = nombresCamino[i];
+                            string puntoFinalActual = nombresCamino[i + 1];
+
+                            var linea = ListaLineas.FirstOrDefault(l => l.PuntoInicio == puntoInicioActual && l.PuntoFinal == puntoFinalActual);
+                            if (linea != null)
+                            {
+                                Distancias.Add(linea.Distancia);
+                            }
+                        }
+                        for (int i = 0; i < Distancias.Count; i++)
+                        {
+                            listBox4.Items.Add(Distancias[i]);
+                        }
+                        listBox7.Items.Add(distancia);
+                    }
+                    else if (radioButton1.Checked) //Auto rentado
+                    {
+                        if (radioButton4.Checked) //tiempo
+                        {
+                            for (int i = 0; i < nombresCamino.Count - 1; i++)
+                            {
+                                string puntoInicioActual = nombresCamino[i];
+                                string puntoFinalActual = nombresCamino[i + 1];
+
+                                var linea = ListaLineas.FirstOrDefault(l => l.PuntoInicio == puntoInicioActual && l.PuntoFinal == puntoFinalActual);
+                                if (linea != null)
+                                {
+                                    TiemposAutoRentado.Add(linea.TiempoAutoRentado);
+                                }
+                            }
+                            for (int i = 0; i < TiemposAutoRentado.Count; i++)
+                            {
+                                listBox5.Items.Add(TiemposAutoRentado[i]);
+                            }
+                            listBox8.Items.Add(distancia);
+                        }
+                        if (radioButton5.Checked) //costo
+                        {
+                            for (int i = 0; i < nombresCamino.Count - 1; i++)
+                            {
+                                string puntoInicioActual = nombresCamino[i];
+                                string puntoFinalActual = nombresCamino[i + 1];
+
+                                var linea = ListaLineas.FirstOrDefault(l => l.PuntoInicio == puntoInicioActual && l.PuntoFinal == puntoFinalActual);
+                                if (linea != null)
+                                {
+                                    CostosAutoRentado.Add(linea.CostoAutoRentado);
+                                }
+                            }
+                            for (int i = 0; i < CostosAutoRentado.Count; i++)
+                            {
+                                listBox6.Items.Add(CostosAutoRentado[i]);
+                            }
+                            listBox9.Items.Add(distancia);
+                        }
+                    }
+                    else if (radioButton2.Checked) //Transporte Público
+                    {
+                        if (radioButton4.Checked) //tiempo
+                        {
+                            for (int i = 0; i < nombresCamino.Count - 1; i++)
+                            {
+                                string puntoInicioActual = nombresCamino[i];
+                                string puntoFinalActual = nombresCamino[i + 1];
+
+                                var linea = ListaLineas.FirstOrDefault(l => l.PuntoInicio == puntoInicioActual && l.PuntoFinal == puntoFinalActual);
+                                if (linea != null)
+                                {
+                                    TiemposTransPublico.Add(linea.TiempoTransPublico);
+                                }
+                            }
+                            for (int i = 0; i < TiemposTransPublico.Count; i++)
+                            {
+                                listBox5.Items.Add(TiemposTransPublico[i]);
+                            }
+                            listBox8.Items.Add(distancia);
+                        }
+                        if (radioButton5.Checked) //costo
+                        {
+                            for (int i = 0; i < nombresCamino.Count - 1; i++)
+                            {
+                                string puntoInicioActual = nombresCamino[i];
+                                string puntoFinalActual = nombresCamino[i + 1];
+
+                                var linea = ListaLineas.FirstOrDefault(l => l.PuntoInicio == puntoInicioActual && l.PuntoFinal == puntoFinalActual);
+                                if (linea != null)
+                                {
+                                    CostosTransPublico.Add(linea.CostoTransPublico);
+                                }
+                            }
+                            for (int i = 0; i < CostosTransPublico.Count; i++)
+                            {
+                                listBox6.Items.Add(CostosTransPublico[i]);
+                            }
+                            listBox9.Items.Add(distancia);
+                        }
+                    }
                 }
             }
             else
@@ -392,5 +597,17 @@ namespace ProyectoFinal
         {
 
         }
+
+        private void listBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void listBox5_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+
     }
 }
